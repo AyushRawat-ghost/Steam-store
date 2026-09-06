@@ -1,0 +1,65 @@
+.steam-footer-wrapper {
+  background-color: #171a21;
+  padding: 30px 20px 60px 20px;
+  color: #8f98a0;
+  font-size: 12px;
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.steam-footer-inner {
+  max-width: 940px;
+  margin: 0 auto;
+}
+
+.steam-footer-divider {
+  height: 1px;
+  background-color: #2e353f;
+  margin: 16px 0;
+}
+
+.steam-footer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.steam-footer-logos {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.valve-logo {
+  font-family: Arial, sans-serif;
+  font-weight: 900;
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: #ff3e3e;
+  border: 2px solid #ff3e3e;
+  padding: 2px 6px;
+}
+
+.steam-footer-text {
+  line-height: 1.5;
+  color: #8f98a0;
+  font-size: 12px;
+}
+
+.steam-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  list-style: none;
+  margin-top: 12px;
+}
+
+.steam-footer-links a {
+  color: #c6d4df;
+  font-size: 12px;
+}
+
+.steam-footer-links a:hover {
+  color: #ffffff;
+}

@@ -1,8 +1,7 @@
-package auth
+package jwt
 
 import (
 	"errors"
-	"log"
 	"os"
 	"strconv"
 	"time"
@@ -11,7 +10,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-type JWTClaims struct {
+type Claims struct {
 	UserID   uint   `json:"user_id"`
 	Username string `json:"username"`
 	Role     string `json:"role"`
@@ -28,10 +27,10 @@ func CheckPasswordHash(password, hash string) bool {
 	return err == nil
 }
 
-func GenerateToken(user *User) (string, error) {
+func GenerateToken(userID uint, username string, role string) (string, error) {
 	secret := os.Getenv("JWT_SECRET")
 	if secret == "" {
-		log.Printf("No JWT Secret was founded")
+		secret = "default_steam_dev_secret_key_32bytes"
 	}
 
 	expiryHoursStr := os.Getenv("JWT_EXPIRY_HOURS")
@@ -40,10 +39,10 @@ func GenerateToken(user *User) (string, error) {
 		expiryHours = 24
 	}
 
-	claims := &JWTClaims{
-		UserID:   user.ID,
-		Username: user.Username,
-		Role:     string(user.Role),
+	claims := &Claims{
+		UserID:   userID,
+		Username: username,
+		Role:     role,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * time.Duration(expiryHours))),
 			Issuer:    "steam-clone",
@@ -53,23 +52,23 @@ func GenerateToken(user *User) (string, error) {
 	return token.SignedString([]byte(secret))
 }
 
-func ValidateToken(tokenString string) (*JWTClaims, error) {
+func ValidateToken(tokenString string) (*Claims, error) {
 	secret := os.Getenv("JWT_SECRET")
 	if secret == "" {
-		log.Printf("No secret of JWT found")
+		secret = "default_steam_dev_secret_key_32bytes"
 	}
-	token, err := jwt.ParseWithClaims(tokenString, &JWTClaims{},
+	token, err := jwt.ParseWithClaims(tokenString, &Claims{},
 		func(token *jwt.Token) (interface{}, error) {
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-				return nil, errors.New("Unexpected SIgning MEthod founded")
+				return nil, errors.New("unexpected signing method")
 			}
 			return []byte(secret), nil
 		})
 	if err != nil {
 		return nil, err
 	}
-	if claims, ok := token.Claims.(*JWTClaims); ok && token.Valid {
+	if claims, ok := token.Claims.(*Claims); ok && token.Valid {
 		return claims, nil
 	}
-	return nil, errors.New("Invalid Token founded")
+	return nil, errors.New("invalid token")
 }

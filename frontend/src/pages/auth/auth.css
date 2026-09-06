@@ -1,0 +1,317 @@
+/* ═══════════════════════════════════════════════════════════════
+   STEAM AUTHENTICATION PAGE STYLES (1:1 Steam Sign-in Experience)
+   ═══════════════════════════════════════════════════════════════ */
+
+.steam-auth-page {
+  flex: 1;
+  background: radial-gradient(circle at 50% 20%, #1e2837 0%, #10141d 80%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px 100px;
+  position: relative;
+}
+
+.steam-auth-container {
+  width: 100%;
+  max-width: 900px;
+}
+
+.steam-auth-title {
+  font-size: 32px;
+  font-weight: 200;
+  letter-spacing: 2px;
+  color: #ffffff;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+/* Main Box */
+.steam-login-box {
+  background-color: #182330;
+  border-radius: 4px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(25, 153, 255, 0.05);
+  display: flex;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.steam-login-left {
+  flex: 1.2;
+  padding: 40px 45px;
+  border-right: 1px solid #232d3b;
+}
+
+.steam-login-right {
+  flex: 0.9;
+  padding: 40px 35px;
+  background-color: #121820;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Forms */
+.steam-form-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--steam-blue);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.steam-form-group {
+  margin-bottom: 20px;
+}
+
+.steam-form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #8f98a0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.steam-input {
+  width: 100%;
+  background-color: #323e4c;
+  border: 1px solid #232c37;
+  border-radius: 2px;
+  color: #ffffff;
+  padding: 10px 14px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.steam-input:focus {
+  background-color: #3a4756;
+  border-color: var(--steam-blue);
+  box-shadow: 0 0 8px rgba(102, 192, 244, 0.3);
+}
+
+.steam-input::placeholder {
+  color: #626e7a;
+}
+
+/* Role Selector */
+.steam-role-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.steam-role-card {
+  background-color: #212c3b;
+  border: 1px solid #2e3d50;
+  border-radius: 4px;
+  padding: 10px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.steam-role-card:hover {
+  border-color: var(--steam-blue);
+  background-color: #273446;
+}
+
+.steam-role-card.active {
+  border-color: var(--steam-blue);
+  background-color: rgba(102, 192, 244, 0.15);
+  box-shadow: 0 0 10px rgba(102, 192, 244, 0.2);
+}
+
+.steam-role-icon {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.steam-role-name {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--steam-text-light);
+}
+
+.steam-role-card.active .steam-role-name {
+  color: #ffffff;
+}
+
+/* Remember me */
+.steam-checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  font-size: 12px;
+  color: #8f98a0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.steam-checkbox {
+  accent-color: var(--steam-blue);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* Sign In Button */
+.steam-btn-primary {
+  width: 100%;
+  padding: 12px 20px;
+  background: linear-gradient(90deg, #06bfff 0%, #2d73ff 100%);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 15px rgba(45, 115, 255, 0.4);
+}
+
+.steam-btn-primary:hover:not(:disabled) {
+  background: linear-gradient(90deg, #1ab8ff 0%, #3d80ff 100%);
+  box-shadow: 0 0 20px rgba(45, 115, 255, 0.7);
+}
+
+.steam-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Error box */
+.steam-error-alert {
+  background-color: rgba(194, 60, 42, 0.15);
+  border: 1px solid var(--steam-red);
+  color: #ff8e80;
+  padding: 12px 14px;
+  border-radius: 3px;
+  font-size: 12px;
+  line-height: 1.4;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.steam-help-link {
+  display: block;
+  text-align: center;
+  margin-top: 18px;
+  font-size: 12px;
+  color: #b8b6b4;
+}
+
+/* QR Code Section */
+.steam-qr-box {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 6px;
+  width: 170px;
+  height: 170px;
+  margin: 18px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.steam-qr-pattern {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.steam-qr-cell {
+  background-color: #10141d;
+  border-radius: 1px;
+}
+
+.steam-qr-corner {
+  background-color: #10141d;
+  border: 3px solid #10141d;
+}
+
+.steam-qr-text {
+  font-size: 12px;
+  color: #8f98a0;
+  line-height: 1.5;
+  max-width: 220px;
+}
+
+.steam-qr-text a {
+  color: var(--steam-blue);
+}
+
+/* Join Steam Card (Bottom) */
+.steam-join-box {
+  background-color: rgba(24, 35, 48, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  padding: 24px 30px;
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.steam-join-text h3 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.steam-join-text p {
+  font-size: 13px;
+  color: #8f98a0;
+}
+
+.steam-join-btn {
+  background-color: #214b6b;
+  border: 1px solid rgba(102, 192, 244, 0.4);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 24px;
+  border-radius: 2px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.steam-join-btn:hover {
+  background-color: #316282;
+  border-color: var(--steam-blue);
+  box-shadow: 0 0 10px rgba(102, 192, 244, 0.3);
+}
+
+@media (max-width: 768px) {
+  .steam-login-box {
+    flex-direction: column;
+  }
+  .steam-login-left {
+    border-right: none;
+    border-bottom: 1px solid #232d3b;
+    padding: 30px 20px;
+  }
+  .steam-login-right {
+    padding: 30px 20px;
+  }
+  .steam-join-box {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+}

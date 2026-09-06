@@ -1,6 +1,9 @@
 package auth
 
-import "errors"
+import (
+	"errors"
+	"steam-backend/pkg/jwt"
+)
 
 type Service interface {
 	Register(req RegisterRequest) (AuthResponse, error)
@@ -28,7 +31,14 @@ func (s *service) Register(req RegisterRequest) (AuthResponse, error) {
 	if role != RoleAdmin && role != RoleDeveloper && role != RoleGamer {
 		role = RoleGamer
 	}
-	hashedPassword, err := HashPassword(req.Password)
+	isVerified := true
+	status := "active"
+
+	if req.Role == RoleDeveloper {
+		isVerified = false
+		status = "pending"
+	}
+	hashedPassword, err := jwt.HashPassword(req.Password)
 	if err != nil {
 		return AuthResponse{}, err
 	}
@@ -41,7 +51,7 @@ func (s *service) Register(req RegisterRequest) (AuthResponse, error) {
 	if err := s.repo.CreateUser(&user); err != nil {
 		return AuthResponse{}, err
 	}
-	token, err := GenerateToken(&user)
+	token, err := jwt.GenerateToken(user.ID, user.Username, string(user.Role))
 	if err != nil {
 		return AuthResponse{}, err
 	}
@@ -59,10 +69,10 @@ func (s *service) Login(req LoginRequest) (*AuthResponse, error) {
 	if user == nil {
 		return nil, errors.New("user not found")
 	}
-	if !CheckPasswordHash(req.Password, user.PasswordHash) {
+	if !jwt.CheckPasswordHash(req.Password, user.PasswordHash) {
 		return nil, errors.New("invalid password")
 	}
-	token, err := GenerateToken(user)
+	token, err := jwt.GenerateToken(user.ID, user.Username, string(user.Role))
 	if err != nil {
 		return nil, err
 	}

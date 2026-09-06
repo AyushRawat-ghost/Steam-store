@@ -13,7 +13,9 @@ import (
 func main() {
 	if err := godotenv.Load(".env"); err != nil {
 		if err := godotenv.Load("../.env"); err != nil {
-			log.Println("Note: No .env file found, relying on system environment variables")
+			if err := godotenv.Load("../../.env"); err != nil {
+				log.Println("Note: No .env file found, relying on system environment variables")
+			}
 		}
 	}
 
@@ -22,7 +24,7 @@ func main() {
 	if err != nil {
 		log.Fatal("Database Auto migration failed")
 	}
-	log.Println("Databse schema migrated...")
+	log.Println("Database schema migrated...")
 	r := gin.Default()
 	r.GET("/health", func(c *gin.Context) {
 		c.JSON(200, gin.H{
@@ -30,6 +32,8 @@ func main() {
 			"message": "Steam backend is running",
 		})
 	})
+	v1 := r.Group("/api/v1")
+	auth.RegisterRoutes(v1, db)
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8000"

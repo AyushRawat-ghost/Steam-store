@@ -31,7 +31,7 @@ func (r *repository) GetUserByEmail(email string) (*User, error) {
 	err := r.db.Where("email = ?", email).First(&user).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, errors.New("user not found")
+			return nil, nil
 		}
 		return nil, err
 	}
@@ -43,7 +43,7 @@ func (r *repository) GetUserByUsername(username string) (*User, error) {
 	err := r.db.Where("username = ?", username).First(&user).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, errors.New("user not found")
+			return nil, nil
 		}
 		return nil, err
 	}
@@ -64,7 +64,7 @@ func (r *repository) GetUserById(id uint) (*User, error) {
 
 func (r *repository) EmailOrUsernameExists(email, username string) (bool, error) {
 	var count int64
-	err := r.db.Where("email = ? OR username = ?", email, username).Count(&count).Error
+	err := r.db.Model(&User{}).Where("email = ? OR username = ?", email, username).Count(&count).Error
 	if err != nil {
 		return false, err
 	}

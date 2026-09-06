@@ -16,15 +16,18 @@ const (
 
 // User model stored in PostgreSQL
 type User struct {
-	ID           uint           `gorm:"primaryKey" json:"id"`
-	Email        string         `gorm:"uniqueIndex;not null" json:"email"`
-	Username     string         `gorm:"uniqueIndex;not null" json:"username"`
-	PasswordHash string         `gorm:"not null" json:"-"` // "-" hides password from JSON output
-	Role         UserRole       `gorm:"type:varchar(20);default:'gamer';not null" json:"role"`
-	AvatarURL    string         `json:"avatar_url"`
-	CreatedAt    time.Time      `json:"created_at"`
-	UpdatedAt    time.Time      `json:"updated_at"`
-	DeletedAt    gorm.DeletedAt `gorm:"index" json:"-"`
+	ID           uint   `gorm:"primaryKey" json:"id"`
+	Email        string `gorm:"uniqueIndex;not null" json:"email"`
+	Username     string `gorm:"uniqueIndex;not null" json:"username"`
+	PasswordHash string `gorm:"not null" json:"-"` // "-" hides password from JSON output
+
+	Role       UserRole       `gorm:"type:varchar(20);default:'gamer';not null" json:"role"`
+	IsVerified bool           `gorm:"default:false;not null" json:"is_verified"`
+	Status     string         `gorm:"type:varchar(20);default:'active'" json:"status"`
+	AvatarURL  string         `json:"avatar_url"`
+	CreatedAt  time.Time      `json:"created_at"`
+	UpdatedAt  time.Time      `json:"updated_at"`
+	DeletedAt  gorm.DeletedAt `gorm:"index" json:"-"`
 }
 
 // RegisterRequest payload sent by client

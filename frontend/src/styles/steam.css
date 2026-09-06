@@ -1,0 +1,78 @@
+/* ═══════════════════════════════════════════════════════════════
+   STEAM DESIGN SYSTEM (1:1 Steam Authentic Palette & Styles)
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --steam-header-bg: #171a21;
+  --steam-body-bg: #10141d;
+  --steam-card-bg: #182330;
+  --steam-card-inner: #121820;
+  --steam-input-bg: #323e4c;
+  --steam-input-border: #232c37;
+  --steam-input-focus: #66c0f4;
+  
+  --steam-blue: #66c0f4;
+  --steam-blue-bright: #1a9fff;
+  --steam-blue-dark: #2a475e;
+  --steam-blue-navy: #1b2838;
+  
+  --steam-text-white: #ffffff;
+  --steam-text-light: #c7d5e0;
+  --steam-text-muted: #8f98a0;
+  --steam-text-dim: #626e7a;
+  
+  --steam-green: #5c7e10;
+  --steam-green-hover: #79991b;
+  --steam-green-text: #a4d007;
+
+  --steam-gold: #c1a875;
+  --steam-red: #c23c2a;
+  
+  --steam-font: "Motiva Sans", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--steam-font);
+  background-color: var(--steam-body-bg);
+  color: var(--steam-text-light);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: var(--steam-blue);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+input, select {
+  font-family: inherit;
+  outline: none;
+}

@@ -1,0 +1,92 @@
+/* ═══════════════════════════════════════════════════════════════
+   STEAM PROMO / ACCESS VIEW STYLES
+   ═══════════════════════════════════════════════════════════════ */
+
+.steam-home-page {
+  flex: 1;
+  background-color: #10141d;
+  background: radial-gradient(circle at 50% 20%, #1e2837 0%, #10141d 80%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px 80px;
+}
+
+.steam-promo-container {
+  width: 100%;
+  max-width: 900px;
+}
+
+.steam-promo-card {
+  background-color: #182330;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 30px rgba(25, 153, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.steam-promo-img-wrap {
+  width: 100%;
+  max-height: 480px;
+  overflow: hidden;
+  position: relative;
+  background-color: #000000;
+}
+
+.steam-promo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.steam-promo-content {
+  padding: 30px 35px;
+  background: linear-gradient(180deg, #182330 0%, #121820 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.steam-promo-text h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+.steam-promo-text p {
+  font-size: 13px;
+  color: #8f98a0;
+  line-height: 1.5;
+}
+
+.steam-btn-access {
+  padding: 12px 28px;
+  background: linear-gradient(90deg, #06bfff 0%, #2d73ff 100%);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 2px;
+  white-space: nowrap;
+  box-shadow: 0 0 15px rgba(45, 115, 255, 0.4);
+  transition: all 0.2s ease;
+}
+
+.steam-btn-access:hover {
+  background: linear-gradient(90deg, #1ab8ff 0%, #3d80ff 100%);
+  box-shadow: 0 0 20px rgba(45, 115, 255, 0.7);
+}
+
+@media (max-width: 768px) {
+  .steam-promo-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  .steam-btn-access {
+    width: 100%;
+  }
+}
