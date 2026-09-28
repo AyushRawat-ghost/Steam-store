@@ -9,6 +9,8 @@ type Service interface {
 	Register(req RegisterRequest) (AuthResponse, error)
 	Login(req LoginRequest) (*AuthResponse, error)
 	GetProfile(UserID uint) (*User, error)
+	GetPendingDevelopers() ([]User, error)
+	VerifyDeveloper(id uint) error
 }
 
 type service struct {
@@ -47,6 +49,8 @@ func (s *service) Register(req RegisterRequest) (AuthResponse, error) {
 		PasswordHash: hashedPassword,
 		Username:     req.Username,
 		Role:         role,
+		IsVerified:   isVerified,
+		Status:       status,
 	}
 	if err := s.repo.CreateUser(&user); err != nil {
 		return AuthResponse{}, err
@@ -91,4 +95,12 @@ func (s *service) GetProfile(UserID uint) (*User, error) {
 		return nil, errors.New("user not found")
 	}
 	return user, nil
+}
+
+func (s *service) GetPendingDevelopers() ([]User, error) {
+	return s.repo.GetPendingDevelopers()
+}
+
+func (s *service) VerifyDeveloper(id uint) error {
+	return s.repo.VerifyDeveloper(id)
 }

@@ -1,0 +1,591 @@
+/* ── Pixel-Accurate Authentic Steam Storefront CSS ── */
+
+.steam-authentic-store {
+  background: radial-gradient(circle at 50% 0%, #1b2838 0%, #0e141b 60%);
+  min-height: 100vh;
+  color: #c7d5e0;
+  font-family: 'Motiva Sans', Arial, Helvetica, sans-serif;
+  padding-bottom: 80px;
+}
+
+/* ── Store Sub-Navigation Bar ── */
+.steam-store-subnav {
+  background: linear-gradient(90deg, #1c3247 0%, #172737 50%, #141f2c 100%);
+  border-bottom: 1px solid rgba(102, 192, 244, 0.2);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+
+.subnav-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 14px;
+}
+
+.subnav-menu-links {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.subnav-chip {
+  font-size: 13px;
+  font-weight: 500;
+  color: #c6d4df;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px;
+  border-radius: 3px;
+  transition: all 0.15s;
+}
+
+.subnav-chip:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.arrow-down {
+  font-size: 8px;
+  color: #8da4b8;
+}
+
+.subnav-right-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Search Bar */
+.steam-search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #316282;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(102, 192, 244, 0.25);
+  height: 30px;
+}
+
+.steam-search-field {
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 4px 10px;
+  color: #ffffff;
+  font-size: 13px;
+  font-style: italic;
+  width: 200px;
+}
+
+.steam-search-field::placeholder {
+  color: #89a6be;
+}
+
+.steam-search-submit {
+  background-color: #2196f3;
+  border: none;
+  height: 100%;
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.steam-search-submit:hover {
+  background-color: #1976d2;
+}
+
+/* Wishlist */
+.subnav-wishlist-btn {
+  background: transparent;
+  border: none;
+  color: #b8c6d4;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 3px;
+  transition: all 0.15s;
+}
+
+.subnav-wishlist-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.wishlist-badge {
+  color: #66c0f4;
+  font-weight: 700;
+}
+
+/* Cart Button */
+.subnav-cart-btn {
+  background-color: #2196f3;
+  border: none;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.15s;
+}
+
+.subnav-cart-btn:hover {
+  background-color: #1976d2;
+}
+
+.cart-badge {
+  background-color: rgba(0, 0, 0, 0.35);
+  padding: 1px 6px;
+  border-radius: 2px;
+}
+
+/* ── Store Body ── */
+.steam-store-body {
+  max-width: 1140px;
+  margin: 24px auto 0;
+  padding: 0 16px;
+}
+
+/* Top Header Row with Gift Card */
+.store-hero-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.steam-hero-heading {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.gift-card-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(90deg, #1b354d, #142434);
+  border: 1px solid rgba(102, 192, 244, 0.3);
+  padding: 4px 14px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.gift-card-banner:hover {
+  border-color: #66c0f4;
+  transform: translateY(-1px);
+}
+
+.gift-card-mini-graphic {
+  display: flex;
+  font-size: 14px;
+  transform: rotate(-10deg);
+}
+
+.gift-card-text {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* ── Authentic Featured & Recommended Hero Carousel ── */
+.steam-hero-carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Side Arrow Chevrons */
+.carousel-arrow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.4);
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 28px;
+  width: 38px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s;
+}
+
+.carousel-arrow-btn.left {
+  left: -46px;
+  border-radius: 4px 0 0 4px;
+}
+
+.carousel-arrow-btn.right {
+  right: -46px;
+  border-radius: 0 4px 4px 0;
+}
+
+.carousel-arrow-btn:hover {
+  background: rgba(33, 150, 243, 0.5);
+  color: #ffffff;
+}
+
+/* Split Card */
+.steam-hero-split-card {
+  display: grid;
+  grid-template-columns: 680px 1fr;
+  background: #0b141d;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.8), 0 0 4px rgba(102, 192, 244, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  width: 100%;
+  min-height: 400px;
+}
+
+/* Left Big Stage */
+.hero-stage-left {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  background: #000000;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-stage-img {
+  width: 100%;
+  height: 355px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.hero-stage-left:hover .hero-stage-img {
+  transform: scale(1.02);
+}
+
+.hero-image-titles {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.hero-game-logo-text {
+  font-size: 32px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 2px;
+}
+
+.hero-edition-tag {
+  font-size: 13px;
+  font-weight: 800;
+  color: #ff6b6b;
+  letter-spacing: 1.5px;
+}
+
+/* Bottom Bright Blue Action Strip */
+.hero-blue-strip {
+  background-color: #2196f3;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 900;
+  color: #000000;
+  letter-spacing: 2px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Right Info Column */
+.hero-info-right {
+  padding: 24px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #0c141d;
+}
+
+.hero-title-text {
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 6px 0;
+  cursor: pointer;
+}
+
+.hero-title-text:hover {
+  color: #66c0f4;
+}
+
+/* Reviews Line */
+.hero-reviews-line {
+  display: flex;
+  gap: 6px;
+  font-size: 12px;
+  margin-bottom: 14px;
+}
+
+.review-badge-text.mixed {
+  color: #b9a074;
+  font-weight: 700;
+}
+
+.review-badge-text.positive {
+  color: #66c0f4;
+  font-weight: 700;
+}
+
+.review-count-text {
+  color: #8f98a0;
+}
+
+/* 2x2 Mini Screenshots Preview Grid */
+.hero-2x2-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.grid-thumb-cell {
+  aspect-ratio: 16/9;
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  opacity: 0.75;
+  transition: all 0.2s ease;
+}
+
+.grid-thumb-cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.grid-thumb-cell:hover,
+.grid-thumb-cell.hovered {
+  opacity: 1;
+  border-color: #66c0f4;
+  box-shadow: 0 0 10px rgba(102, 192, 244, 0.4);
+  transform: scale(1.03);
+}
+
+/* Recommendation Line */
+.hero-recommendation-note {
+  font-size: 12px;
+  color: #8da4b8;
+  margin-bottom: 8px;
+}
+
+.rec-accent {
+  color: #b2cf47;
+  font-weight: 700;
+}
+
+/* Tag Pills */
+.hero-tag-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.steam-tag-pill {
+  background: #213548;
+  color: #8da4b8;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+
+/* Bottom Price Tag */
+.hero-pricing-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 12px;
+}
+
+.price-tag-badge {
+  background: #101822;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 2px;
+  letter-spacing: 0.5px;
+}
+
+.hero-sale-block {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.steam-discount-box {
+  background: #4c6b22;
+  color: #a4d007;
+  font-size: 16px;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 2px;
+}
+
+.strike-and-new {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.strike-old {
+  font-size: 10px;
+  color: #738895;
+  text-decoration: line-through;
+}
+
+/* Indicator Dots Bar */
+.carousel-indicator-bar {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin: 14px 0 36px;
+}
+
+.indicator-segment {
+  width: 16px;
+  height: 9px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.indicator-segment.active {
+  background: #66c0f4;
+  width: 24px;
+}
+
+/* Specials Grid */
+.catalog-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.catalog-header-bar h3 {
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.catalog-see-more {
+  font-size: 11px;
+  color: #66c0f4;
+  cursor: pointer;
+}
+
+.steam-specials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.special-offer-card {
+  background: #16202d;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.special-offer-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(102, 192, 244, 0.4);
+}
+
+.special-card-img-wrap {
+  position: relative;
+  aspect-ratio: 16/9;
+  background: #000;
+}
+
+.special-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.special-discount-tag {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #4c6b22;
+  color: #a4d007;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+.special-card-footer {
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.special-game-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.special-pricing {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.special-old-price {
+  font-size: 10px;
+  color: #738895;
+  text-decoration: line-through;
+}
+
+.special-final-price {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+}

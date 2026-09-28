@@ -3,13 +3,17 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AuthPage from './pages/auth/AuthPage';
-import Home from './pages/Home';
+import StorePage from './pages/store/StorePage';
+import DeveloperStudio from './pages/developer/DeveloperStudio';
 import AdminPortal from './pages/admin/AdminPortal';
+import CommunityPage from './pages/community/CommunityPage';
+import AboutPage from './pages/about/AboutPage';
+import SupportPage from './pages/support/SupportPage';
 import './App.css';
 
 function AppContent() {
   const { isAuthenticated, loading } = useAuth();
-  const [currentTab, setCurrentTab] = useState('store'); // 'store' | 'auth' | 'admin' | 'community' | 'about' | 'support'
+  const [currentTab, setCurrentTab] = useState('store'); // 'store' | 'auth' | 'admin' | 'developer' | 'community' | 'about' | 'support'
 
   if (loading) {
     return (
@@ -40,10 +44,18 @@ function AppContent() {
       <main className="steam-main-content">
         {currentTab === 'admin' ? (
           <AdminPortal />
+        ) : currentTab === 'developer' ? (
+          <DeveloperStudio onNavigateStore={() => setCurrentTab('store')} />
+        ) : currentTab === 'community' ? (
+          <CommunityPage />
+        ) : currentTab === 'about' ? (
+          <AboutPage />
+        ) : currentTab === 'support' ? (
+          <SupportPage />
         ) : currentTab === 'auth' || (!isAuthenticated && currentTab === 'login') ? (
           <AuthPage onSuccess={() => setCurrentTab('store')} />
         ) : (
-          <Home onNavigateAuth={() => setCurrentTab('auth')} />
+          <StorePage />
         )}
       </main>
 

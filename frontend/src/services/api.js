@@ -5,9 +5,10 @@ const API_BASE_URL = '/api/v1';
  */
 async function request(endpoint, options = {}) {
   const token = localStorage.getItem('steam_token');
+  const isFormData = options.body instanceof FormData;
 
   const headers = {
-    'Content-Type': 'application/json',
+    ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
     ...(options.headers || {}),
   };
 
@@ -74,3 +75,69 @@ export const authApi = {
     });
   },
 };
+
+export const gamesApi = {
+  // ── Public Store Endpoints ──
+  getGames: (params = {}) => {
+    const query = new URLSearchParams(params).toString();
+    return request(`/games${query ? `?${query}` : ''}`, { method: 'GET' });
+  },
+
+  getFeaturedGames: () => {
+    return request('/games/featured', { method: 'GET' });
+  },
+
+  getGame: (idOrSlug) => {
+    return request(`/games/${idOrSlug}`, { method: 'GET' });
+  },
+
+  // ── Developer Endpoints ──
+  getMyGames: () => {
+    return request('/developer/games', { method: 'GET' });
+  },
+
+  createGame: (payload) => {
+    return request('/developer/games', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+  },
+
+  updateGame: (id, payload) => {
+    return request(`/developer/games/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(payload),
+    });
+  },
+
+  deleteGame: (id) => {
+    return request(`/developer/games/${id}`, {
+      method: 'DELETE',
+    });
+  },
+
+  // ── Upload Asset to S3 ──
+  uploadAsset: (file, folder = 'game-covers') => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('folder', folder);
+    return request('/upload/s3', {
+      method: 'POST',
+      body: formData,
+    });
+  },
+
+  // ── Admin Endpoints ──
+  adminGetAllGames: (params = {}) => {
+    const query = new URLSearchParams(params).toString();
+    return request(`/admin/games${query ? `?${query}` : ''}`, { method: 'GET' });
+  },
+
+  adminUpdateStatus: (id, payload) => {
+    return request(`/admin/games/${id}/status`, {
+      method: 'PATCH',
+      body: JSON.stringify(payload),
+    });
+  },
+};
+

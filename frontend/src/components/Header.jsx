@@ -5,6 +5,7 @@ import './Header.css';
 export default function Header({ currentTab, onTabChange }) {
   const { user, isAuthenticated, isGamer, isDev, isAdmin, logout } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [clientMenuOpen, setClientMenuOpen] = useState(null);
   const dropdownRef = useRef(null);
 
   // Close dropdown when clicking outside
@@ -18,182 +19,197 @@ export default function Header({ currentTab, onTabChange }) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  return (
-    <header className="steam-header-wrapper">
-      <div className="steam-header-inner">
-        {/* Left Side: Logo & Main Navigation */}
-        <div className="steam-header-left">
-          <a href="#store" onClick={() => onTabChange('store')} className="steam-logo-link">
-            <svg className="steam-logo-svg" viewBox="0 0 176 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12.5 0C5.6 0 0 5.6 0 12.5C0 18.2 3.8 23 9.1 24.5L16.2 34.8C16.1 35.3 16 35.9 16 36.5C16 40.6 19.4 44 23.5 44C27.6 44 31 40.6 31 36.5C31 32.4 27.6 29 23.5 29C23.2 29 22.9 29 22.6 29.1L14.7 17.6C16.1 16.1 17 14.2 17 12C17 6.5 12.5 2 7 2" fill="#C7D5E0"/>
-              <text x="40" y="28" fill="#C7D5E0" fontFamily="'Motiva Sans', sans-serif" fontSize="22" fontWeight="900" letterSpacing="4">STEAM</text>
-            </svg>
-          </a>
+  const username = user?.username || 'Gamer';
 
-          <nav>
-            <ul className="steam-nav-menu">
-              <li className="steam-nav-item">
-                <a
-                  href="#store"
-                  className={currentTab === 'store' ? 'active' : ''}
-                  onClick={(e) => { e.preventDefault(); onTabChange('store'); }}
-                >
-                  STORE
-                </a>
-              </li>
-              <li className="steam-nav-item">
-                <a
-                  href="#community"
-                  className={currentTab === 'community' ? 'active' : ''}
-                  onClick={(e) => { e.preventDefault(); onTabChange('community'); }}
-                >
-                  COMMUNITY
-                </a>
-              </li>
-              <li className="steam-nav-item">
-                <a
-                  href="#about"
-                  className={currentTab === 'about' ? 'active' : ''}
-                  onClick={(e) => { e.preventDefault(); onTabChange('about'); }}
-                >
-                  ABOUT
-                </a>
-              </li>
-              <li className="steam-nav-item">
-                <a
-                  href="#support"
-                  className={currentTab === 'support' ? 'active' : ''}
-                  onClick={(e) => { e.preventDefault(); onTabChange('support'); }}
-                >
-                  SUPPORT
-                </a>
-              </li>
-            </ul>
+  return (
+    <header className="steam-client-header">
+      {/* ── Level 1: Desktop Window Titlebar ── */}
+      <div className="steam-window-bar">
+        <div className="steam-window-left">
+          <svg className="steam-window-logo" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.82 8.24 11.43l3.52-5.11a3.67 3.67 0 0 1-.76-2.32c0-2.03 1.64-3.67 3.67-3.67.31 0 .61.04.9.11l2.45-3.56A6.97 6.97 0 0 0 12 5.03c-3.87 0-7 3.13-7 7 0 1.25.33 2.42.91 3.44L2.09 13.9C2.03 13.28 2 12.65 2 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10c-1.57 0-3.04-.37-4.35-1.01l4.47-3.08c.55.27 1.18.42 1.88.42 2.39 0 4.33-1.94 4.33-4.33s-1.94-4.33-4.33-4.33-4.33 1.94-4.33 4.33c0 .24.02.47.06.7l-4.22 2.91C5.07 15.69 4.67 13.91 4.67 12c0-4.05 3.28-7.33 7.33-7.33s7.33 3.28 7.33 7.33-3.28 7.33-7.33 7.33c-.76 0-1.49-.12-2.17-.34l-3.32 4.82C8.01 23.93 9.96 24 12 24c6.63 0 12-5.37 12-12S18.63 0 12 0z"/>
+          </svg>
+
+          <div className="steam-menu-items">
+            <span className="client-menu-link">Steam</span>
+            <span className="client-menu-link">View</span>
+            <span className="client-menu-link">Friends</span>
+            <span className="client-menu-link">Games</span>
+            <span className="client-menu-link">Help</span>
+          </div>
+        </div>
+
+        <div className="steam-window-right">
+          {/* Announcements Megaphone */}
+          <button className="window-icon-btn megaphone" title="News & Updates">
+            📢
+          </button>
+
+          {/* Notifications Bell */}
+          <button className="window-icon-btn bell" title="Notifications">
+            🔔
+          </button>
+
+          {/* User Account Trigger */}
+          {isAuthenticated ? (
+            <div className="steam-user-pill-container" ref={dropdownRef}>
+              <button
+                className={`steam-account-pill ${dropdownOpen ? 'open' : ''}`}
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+              >
+                <div className="account-avatar-mini">
+                  {user?.avatar_url ? (
+                    <img src={user.avatar_url} alt="" />
+                  ) : (
+                    <span>?</span>
+                  )}
+                </div>
+                <span className="account-pill-name">{username}</span>
+                <span className="account-pill-arrow">▼</span>
+              </button>
+
+              {/* Profile Dropdown Menu */}
+              {dropdownOpen && (
+                <div className="steam-dropdown-menu">
+                  <div className="steam-dropdown-header">
+                    <div className="steam-user-avatar large">
+                      {username.charAt(0).toUpperCase()}
+                    </div>
+                    <div className="steam-dropdown-user-details">
+                      <span className="steam-dropdown-fullname">{username}</span>
+                      <span className="steam-dropdown-email">{user?.email}</span>
+                      <div className="steam-dropdown-wallet">
+                        Wallet: <strong style={{ color: '#a4d007' }}>₹ 1,450.00</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="steam-dropdown-divider"></div>
+
+                  <div className="steam-dropdown-links">
+                    <a href="#profile" className="steam-dropdown-item" onClick={() => setDropdownOpen(false)}>
+                      <span className="item-icon">👤</span> View Profile
+                    </a>
+                    
+                    <a href="#library" className="steam-dropdown-item" onClick={() => { setDropdownOpen(false); onTabChange('library'); }}>
+                      <span className="item-icon">🎮</span> My Games Library
+                    </a>
+
+                    {(isDev || isAdmin) && (
+                      <a
+                        href="#dev-portal"
+                        className="steam-dropdown-item"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setDropdownOpen(false);
+                          onTabChange('developer');
+                        }}
+                      >
+                        <span className="item-icon">🛠️</span> Steamworks Dev Portal
+                      </a>
+                    )}
+
+                    {isAdmin && (
+                      <a
+                        href="#admin-portal"
+                        className="steam-dropdown-item highlight-admin"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setDropdownOpen(false);
+                          onTabChange('admin');
+                        }}
+                      >
+                        <span className="item-icon">👑</span> Admin Command Center
+                      </a>
+                    )}
+
+                    <a href="#account" className="steam-dropdown-item" onClick={() => setDropdownOpen(false)}>
+                      <span className="item-icon">💼</span> Account Details
+                    </a>
+                  </div>
+
+                  <div className="steam-dropdown-divider"></div>
+
+                  <button
+                    className="steam-dropdown-signout"
+                    onClick={() => {
+                      setDropdownOpen(false);
+                      logout();
+                    }}
+                  >
+                    Sign out of account...
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <button
+              className="steam-login-btn-top"
+              onClick={() => onTabChange('auth')}
+            >
+              Sign In
+            </button>
+          )}
+
+          {/* Window Control Buttons */}
+          <div className="window-controls">
+            <span className="win-btn">—</span>
+            <span className="win-btn">□</span>
+            <span className="win-btn close">✕</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Level 2: Browser Bar & Primary Navigation ── */}
+      <div className="steam-nav-bar">
+        <div className="steam-nav-bar-inner">
+          
+          {/* Browser Navigation Arrow Controls */}
+          <div className="steam-browser-controls">
+            <button className="nav-arrow-btn" title="Back" onClick={() => onTabChange('store')}>←</button>
+            <button className="nav-arrow-btn" title="Forward">→</button>
+            <button className="nav-arrow-btn reload" title="Reload" onClick={() => window.location.reload()}>↻</button>
+          </div>
+
+          {/* Primary Tabs */}
+          <nav className="steam-primary-tabs">
+            <button
+              className={`main-tab-link ${currentTab === 'store' ? 'active' : ''}`}
+              onClick={() => onTabChange('store')}
+            >
+              STORE
+            </button>
+            <button
+              className={`main-tab-link ${currentTab === 'library' ? 'active' : ''}`}
+              onClick={() => onTabChange('library')}
+            >
+              LIBRARY
+            </button>
+            <button
+              className={`main-tab-link ${currentTab === 'community' ? 'active' : ''}`}
+              onClick={() => onTabChange('community')}
+            >
+              COMMUNITY
+            </button>
+            <button
+              className={`main-tab-link ${currentTab === 'profile' || currentTab === 'user' ? 'active' : ''}`}
+              onClick={() => {
+                if (isAuthenticated) {
+                  onTabChange('store');
+                } else {
+                  onTabChange('auth');
+                }
+              }}
+            >
+              {isAuthenticated ? username.toUpperCase() : 'LOGIN'}
+            </button>
           </nav>
         </div>
 
-        {/* Right Side: Install Steam & User Profile Dropdown */}
-        <div className="steam-header-right">
-          <div className="steam-install-bar">
-            <a href="#install" className="steam-install-btn">
-              <svg viewBox="0 0 16 16" fill="currentColor">
-                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-              </svg>
-              Install Steam
-            </a>
-
-            {isAuthenticated ? (
-              <div className="steam-profile-dropdown-container" ref={dropdownRef}>
-                {/* User Trigger Button */}
-                <button
-                  className={`steam-user-trigger ${dropdownOpen ? 'open' : ''}`}
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
-                  aria-expanded={dropdownOpen}
-                >
-                  <div className="steam-user-avatar-wrap">
-                    <div className="steam-user-avatar">
-                      {user?.username ? user.username.charAt(0).toUpperCase() : 'U'}
-                    </div>
-                    <span className="steam-online-dot"></span>
-                  </div>
-
-                  <div className="steam-user-meta">
-                    <span className="steam-user-name">{user?.username}</span>
-                    <span className={`steam-user-role role-${user?.role}`}>
-                      {user?.role}
-                    </span>
-                  </div>
-
-                  <span className="steam-dropdown-arrow">▼</span>
-                </button>
-
-                {/* Steam Authentic Dropdown Menu */}
-                {dropdownOpen && (
-                  <div className="steam-dropdown-menu">
-                    {/* Header Summary */}
-                    <div className="steam-dropdown-header">
-                      <div className="steam-user-avatar large">
-                        {user?.username ? user.username.charAt(0).toUpperCase() : 'U'}
-                      </div>
-                      <div className="steam-dropdown-user-details">
-                        <span className="steam-dropdown-fullname">{user?.username}</span>
-                        <span className="steam-dropdown-email">{user?.email}</span>
-                        <div className="steam-dropdown-wallet">
-                          Wallet: <strong style={{ color: '#a4d007' }}>$0.00 USD</strong>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="steam-dropdown-divider"></div>
-
-                    {/* Navigation Items */}
-                    <div className="steam-dropdown-links">
-                      <a href="#profile" className="steam-dropdown-item" onClick={() => setDropdownOpen(false)}>
-                        <span className="item-icon">👤</span> View Profile
-                      </a>
-                      
-                      {isGamer && (
-                        <a href="#library" className="steam-dropdown-item" onClick={() => setDropdownOpen(false)}>
-                          <span className="item-icon">🎮</span> My Games Library
-                        </a>
-                      )}
-
-                      {isDev && (
-                        <a href="#dev-portal" className="steam-dropdown-item" onClick={() => setDropdownOpen(false)}>
-                          <span className="item-icon">🛠️</span> Steamworks Dev Portal
-                        </a>
-                      )}
-
-                      {isAdmin && (
-                        <a
-                          href="#admin-portal"
-                          className="steam-dropdown-item highlight-admin"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setDropdownOpen(false);
-                            onTabChange('admin');
-                          }}
-                        >
-                          <span className="item-icon">👑</span> Admin Command Center
-                        </a>
-                      )}
-
-                      <a href="#account" className="steam-dropdown-item" onClick={() => setDropdownOpen(false)}>
-                        <span className="item-icon">💼</span> Account Details & Preferences
-                      </a>
-                    </div>
-
-                    <div className="steam-dropdown-divider"></div>
-
-                    {/* Sign out */}
-                    <button
-                      className="steam-dropdown-signout"
-                      onClick={() => {
-                        setDropdownOpen(false);
-                        logout();
-                      }}
-                    >
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                        <polyline points="16 17 21 12 16 7"></polyline>
-                        <line x1="21" y1="12" x2="9" y2="12"></line>
-                      </svg>
-                      Sign out of account...
-                    </button>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <a
-                href="#auth"
-                className="steam-login-link"
-                onClick={(e) => { e.preventDefault(); onTabChange('auth'); }}
-              >
-                login &nbsp;|&nbsp; language ▼
-              </a>
-            )}
-          </div>
+        {/* Browser URL Bar Ribbon */}
+        <div className="steam-url-ribbon">
+          <span className="url-lock">🔒</span>
+          <span className="url-text">https://store.steampowered.com/</span>
         </div>
       </div>
     </header>

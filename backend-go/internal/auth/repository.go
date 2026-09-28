@@ -12,6 +12,8 @@ type Repository interface {
 	GetUserByUsername(username string) (*User, error)
 	GetUserById(id uint) (*User, error)
 	EmailOrUsernameExists(email, username string) (bool, error)
+	GetPendingDevelopers() ([]User, error)
+	VerifyDeveloper(id uint) error
 }
 
 type repository struct {
@@ -70,3 +72,17 @@ func (r *repository) EmailOrUsernameExists(email, username string) (bool, error)
 	}
 	return count > 0, nil
 }
+
+func (r *repository) GetPendingDevelopers() ([]User, error) {
+	var users []User
+	err := r.db.Where("role = ? AND is_verified = ?", RoleDeveloper, false).Find(&users).Error
+	return users, err
+}
+
+func (r *repository) VerifyDeveloper(id uint) error {
+	return r.db.Model(&User{}).Where("id = ?", id).Updates(map[string]interface{}{
+		"is_verified": true,
+		"status":      "active",
+	}).Error
+}
+

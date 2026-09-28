@@ -4,7 +4,9 @@ import (
 	"log"
 	"os"
 	"steam-backend/internal/auth"
+	"steam-backend/internal/games"
 	"steam-backend/pkg/database"
+	"steam-backend/pkg/s3"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -20,7 +22,7 @@ func main() {
 	}
 
 	db := database.Connect()
-	err := db.AutoMigrate(&auth.User{})
+	err := db.AutoMigrate(&auth.User{}, &games.Game{})
 	if err != nil {
 		log.Fatal("Database Auto migration failed")
 	}
@@ -33,7 +35,12 @@ func main() {
 		})
 	})
 	v1 := r.Group("/api/v1")
+	s3Client, err := s3.NewS3Client()
+	if err != nil {
+		log.Fatalf("Failed to initialize S3 client: %v", err)
+	}
 	auth.RegisterRoutes(v1, db)
+	games.RegisterRoutes(v1, db, s3Client)
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8000"

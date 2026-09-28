@@ -1,0 +1,304 @@
+/* ── Steam About Page CSS ── */
+
+.steam-about-page {
+  background: #0d121a;
+  color: #c6d4df;
+  font-family: 'Motiva Sans', Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Hero Section */
+.about-hero-section {
+  background: radial-gradient(circle at 50% 30%, #1c334d 0%, #0c141e 75%);
+  padding: 80px 20px 100px;
+  position: relative;
+  text-align: center;
+  border-bottom: 1px solid rgba(102, 192, 244, 0.15);
+}
+
+.about-hero-container {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.about-tagline {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #66c0f4;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.about-hero-content h1 {
+  font-size: 42px;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.2;
+  margin: 0 0 20px 0;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+}
+
+.about-hero-sub {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #9cb4ca;
+  margin-bottom: 36px;
+}
+
+/* Live Stats */
+.about-live-stats {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 40px;
+}
+
+.stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(16, 26, 38, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 12px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.stat-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.stat-dot.online {
+  background-color: #57cbde;
+  box-shadow: 0 0 8px #57cbde;
+}
+
+.stat-dot.in-game {
+  background-color: #a4d007;
+  box-shadow: 0 0 8px #a4d007;
+}
+
+.stat-pill strong {
+  display: block;
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.stat-pill small {
+  font-size: 11px;
+  color: #8da4b8;
+  letter-spacing: 1px;
+}
+
+/* Install Button */
+.about-install-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.about-install-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(90deg, #1b90ff 0%, #1270cc 100%);
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 16px 40px;
+  border-radius: 4px;
+  box-shadow: 0 6px 24px rgba(27, 144, 255, 0.45);
+  transition: all 0.25s ease;
+}
+
+.about-install-btn:hover {
+  background: linear-gradient(90deg, #3aa7ff 0%, #1783ee 100%);
+  box-shadow: 0 8px 30px rgba(27, 144, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+.supported-os-icons {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  color: #8da4b8;
+}
+
+/* Steam Deck Section */
+.about-deck-section {
+  background: #111a24;
+  padding: 80px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.about-deck-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.deck-visual-side {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+}
+
+.deck-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.deck-badge {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #ffaa00;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+.deck-kicker {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #ffaa00;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.deck-info-side h2 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.25;
+  margin: 0 0 16px 0;
+}
+
+.deck-info-side p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #8da4b8;
+  margin-bottom: 24px;
+}
+
+.deck-specs-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.deck-spec-item {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.deck-spec-item strong {
+  display: block;
+  font-size: 16px;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.deck-spec-item span {
+  font-size: 11px;
+  color: #66c0f4;
+}
+
+.deck-learn-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.deck-learn-btn:hover {
+  background: #ffffff;
+  color: #0b1016;
+}
+
+/* Features Grid */
+.about-features-section {
+  padding: 80px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.features-header {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto 50px;
+}
+
+.features-header h2 {
+  font-size: 30px;
+  color: #ffffff;
+  margin: 0 0 12px 0;
+}
+
+.features-header p {
+  font-size: 15px;
+  color: #8da4b8;
+  margin: 0;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.feature-card {
+  background: #141c26;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 24px;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(102, 192, 244, 0.3);
+}
+
+.feature-icon {
+  font-size: 30px;
+  margin-bottom: 14px;
+}
+
+.feature-card h3 {
+  font-size: 17px;
+  color: #ffffff;
+  margin: 0 0 10px 0;
+}
+
+.feature-card p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #8da4b8;
+  margin: 0;
+}

@@ -4,10 +4,13 @@
 !.env.example
 *.pem
 *.key
+*.cert
 
 # ─── Go Backend (backend-go) ────────────────────────────────────────────────
 backend-go/bin/
 backend-go/build/
+backend-go/server.exe
+backend-go/*.exe
 *.exe
 *.exe~
 *.dll
@@ -46,21 +49,31 @@ wheels/
 .coverage
 htmlcov/
 
-# ─── React Client (client) ──────────────────────────────────────────────────
+# ─── Frontend & Client (frontend / client) ──────────────────────────────────
 node_modules/
+frontend/node_modules/
 client/node_modules/
+frontend/dist/
+frontend/dist-ssr/
 client/dist/
 client/dist-ssr/
 .npm
 *.tsbuildinfo
 .eslintcache
+.oxlint-cache
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
 # ─── IDE & OS Files ──────────────────────────────────────────────────────────
 .vscode/
+!.vscode/extensions.json
 .idea/
 *.swp
 *.swo
 *~
 .DS_Store
 Thumbs.db
-*.log
