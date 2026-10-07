@@ -21,19 +21,26 @@ type S3Client struct {
 	uploader   *manager.Uploader
 	bucketName string
 	region     string
+	endpoint   string
+	publicURL  string
 }
 
 func NewS3Client() (*S3Client, error) {
 	region := os.Getenv("AWS_REGION")
 	if region == "" {
-		region = "south-asia-1"
+		region = "us-east-1"
 	}
 	accessKey := os.Getenv("AWS_ACCESS_KEY_ID")
 	secretKey := os.Getenv("AWS_SECRET_ACCESS_KEY")
 	bucket := os.Getenv("S3_BUCKET_NAME")
+	endpoint := os.Getenv("AWS_ENDPOINT_URL")
+	if endpoint == "" {
+		endpoint = os.Getenv("S3_ENDPOINT")
+	}
+	publicURL := os.Getenv("S3_PUBLIC_URL")
 
 	if bucket == "" || accessKey == "" || secretKey == "" {
-		return nil, errors.New("Configurations missing")
+		return nil, errors.New("Configurations missing: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, or S3_BUCKET_NAME")
 	}
 
 	cfg, err := config.LoadDefaultConfig(context.TODO(),
@@ -44,7 +51,14 @@ func NewS3Client() (*S3Client, error) {
 	if err != nil {
 		return nil, fmt.Errorf("Unable to load AWS SDK config : %w", err)
 	}
-	client := s3service.NewFromConfig(cfg)
+
+	// Configure S3 client options (supports MinIO / LocalStack / custom S3 endpoints)
+	client := s3service.NewFromConfig(cfg, func(o *s3service.Options) {
+		if endpoint != "" {
+			o.BaseEndpoint = aws.String(endpoint)
+			o.UsePathStyle = true
+		}
+	})
 	uploader := manager.NewUploader(client)
 
 	return &S3Client{
@@ -52,6 +66,8 @@ func NewS3Client() (*S3Client, error) {
 		uploader:   uploader,
 		bucketName: bucket,
 		region:     region,
+		endpoint:   endpoint,
+		publicURL:  publicURL,
 	}, nil
 }
 
@@ -79,5 +95,18 @@ func (s *S3Client) UploadFile(fileHeader *multipart.FileHeader, folder string) (
 		return "", err
 	}
 
-	return uploadOutput.Location, nil
+	// Return explicit public URL if configured (useful for local MinIO / public proxy)
+	if s.publicURL != "" {
+		return fmt.Sprintf("%s/%s/%s", s.publicURL, s.bucketName, uniquefilename), nil
+	}
+
+	if uploadOutput.Location != "" {
+		return uploadOutput.Location, nil
+	}
+
+	if s.endpoint != "" {
+		return fmt.Sprintf("%s/%s/%s", s.endpoint, s.bucketName, uniquefilename), nil
+	}
+
+	return fmt.Sprintf("https://%s.s3.%s.amazonaws.com/%s", s.bucketName, s.region, uniquefilename), nil
 }
