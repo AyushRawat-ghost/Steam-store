@@ -66,8 +66,6 @@ services:
     depends_on:
       - postgres
       - redis
-      - mongodb
-      - minio
     environment:
       - PORT=8080
       - DATABASE_URL=postgres://postgres:yourpassword@postgres:5432/steamdb?sslmode=disable

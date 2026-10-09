@@ -91,9 +91,15 @@ export function AuthProvider({ children }) {
     setError(null);
   };
 
+  const updateWalletBalance = (newBalance) => {
+    setUser((prev) => (prev ? { ...prev, wallet_balance: newBalance } : prev));
+  };
+
   const value = {
     user,
     token,
+    walletBalance: user?.wallet_balance ?? 100.0,
+    updateWalletBalance,
     isAuthenticated: !!user,
     role: user?.role || null,
     isGamer: user?.role === 'gamer',

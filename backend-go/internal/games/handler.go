@@ -184,3 +184,67 @@ func (h *Handler) AdminUpdateStatus(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Game status updated successfully"})
 }
+
+func (h *Handler) GetReviews(c *gin.Context) {
+	idOrSlug := c.Param("id")
+	game, err := h.service.GetGame(idOrSlug)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Game not found"})
+		return
+	}
+	filter := c.DefaultQuery("filter", "all")
+	reviews, err := h.service.GetReviews(game.ID, filter)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": reviews})
+}
+
+func (h *Handler) CreateReview(c *gin.Context) {
+	idOrSlug := c.Param("id")
+	game, err := h.service.GetGame(idOrSlug)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Game not found"})
+		return
+	}
+	var req CreateReviewRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	userID := getUserID(c)
+	username := c.GetString("username")
+	if username == "" {
+		username = "Steam Player"
+	}
+	avatar := "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg"
+
+	review, err := h.service.CreateReview(game.ID, userID, username, avatar, req)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusCreated, gin.H{"message": "Review posted", "data": review})
+}
+
+func (h *Handler) VoteReview(c *gin.Context) {
+	reviewID, err := strconv.ParseUint(c.Param("reviewId"), 10, 32)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid review ID"})
+		return
+	}
+	var req struct {
+		Type string `json:"type"`
+	}
+	_ = c.ShouldBindJSON(&req)
+	voteType := "helpful"
+	if req.Type == "funny" {
+		voteType = "funny"
+	}
+	if err := h.service.VoteReview(uint(reviewID), voteType); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "Vote recorded"})
+}

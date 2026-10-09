@@ -45,12 +45,13 @@ func (s *service) Register(req RegisterRequest) (AuthResponse, error) {
 		return AuthResponse{}, err
 	}
 	user := User{
-		Email:        req.Email,
-		PasswordHash: hashedPassword,
-		Username:     req.Username,
-		Role:         role,
-		IsVerified:   isVerified,
-		Status:       status,
+		Email:         req.Email,
+		PasswordHash:  hashedPassword,
+		Username:      req.Username,
+		Role:          role,
+		IsVerified:    isVerified,
+		Status:        status,
+		WalletBalance: 100.00,
 	}
 	if err := s.repo.CreateUser(&user); err != nil {
 		return AuthResponse{}, err

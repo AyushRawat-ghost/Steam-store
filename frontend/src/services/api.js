@@ -139,5 +139,75 @@ export const gamesApi = {
       body: JSON.stringify(payload),
     });
   },
+
+  // ── Game Reviews ──
+  getReviews: (idOrSlug, filter = 'all') => {
+    return request(`/games/${idOrSlug}/reviews?filter=${filter}`, { method: 'GET' });
+  },
+
+  createReview: (idOrSlug, payload) => {
+    return request(`/games/${idOrSlug}/reviews`, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+  },
+
+  voteReview: (reviewId, type = 'helpful') => {
+    return request(`/games/reviews/${reviewId}/vote`, {
+      method: 'POST',
+      body: JSON.stringify({ type }),
+    });
+  },
 };
 
+export const cartApi = {
+  // GET /api/v1/cart
+  getCart: () => {
+    return request('/cart', { method: 'GET' });
+  },
+
+  // POST /api/v1/cart/items
+  addToCart: (gameId) => {
+    return request('/cart/items', {
+      method: 'POST',
+      body: JSON.stringify({ game_id: Number(gameId) }),
+    });
+  },
+
+  // DELETE /api/v1/cart/items/:gameId
+  removeFromCart: (gameId) => {
+    return request(`/cart/items/${gameId}`, { method: 'DELETE' });
+  },
+
+  // DELETE /api/v1/cart
+  clearCart: () => {
+    return request('/cart', { method: 'DELETE' });
+  },
+
+  // POST /api/v1/cart/checkout
+  checkout: () => {
+    return request('/cart/checkout', { method: 'POST' });
+  },
+};
+
+export const walletApi = {
+  // GET /api/v1/wallet
+  getWallet: () => {
+    return request('/wallet', { method: 'GET' });
+  },
+
+  // POST /api/v1/wallet/deposit
+  deposit: (amount) => {
+    return request('/wallet/deposit', {
+      method: 'POST',
+      body: JSON.stringify({ amount: Number(amount) }),
+    });
+  },
+};
+
+export const libraryApi = {
+  // GET /api/v1/library
+  getLibrary: () => {
+    return request('/library', { method: 'GET' });
+  },
+};

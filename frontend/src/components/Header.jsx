@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import './Header.css';
 
-export default function Header({ currentTab, onTabChange }) {
-  const { user, isAuthenticated, isGamer, isDev, isAdmin, logout } = useAuth();
+export default function Header({ currentTab, onTabChange, onOpenCart, cartCount = 0 }) {
+  const { user, isAuthenticated, isGamer, isDev, isAdmin, logout, walletBalance } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [clientMenuOpen, setClientMenuOpen] = useState(null);
   const dropdownRef = useRef(null);
@@ -79,7 +79,7 @@ export default function Header({ currentTab, onTabChange }) {
                       <span className="steam-dropdown-fullname">{username}</span>
                       <span className="steam-dropdown-email">{user?.email}</span>
                       <div className="steam-dropdown-wallet">
-                        Wallet: <strong style={{ color: '#a4d007' }}>₹ 1,450.00</strong>
+                        Wallet: <strong style={{ color: '#a4d007' }}>${Number(walletBalance || 0).toFixed(2)} USD</strong>
                       </div>
                     </div>
                   </div>

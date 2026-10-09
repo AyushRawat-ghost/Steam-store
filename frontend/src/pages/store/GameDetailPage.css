@@ -1,0 +1,658 @@
+.steam-product-page {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 16px 20px 60px;
+  color: #acb2b8;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* ── Breadcrumb Bar ── */
+.product-breadcrumb-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.breadcrumb-link {
+  background: transparent;
+  border: none;
+  color: #8f98a0;
+  cursor: pointer;
+  padding: 0;
+  font-size: 12px;
+}
+
+.breadcrumb-link:hover {
+  color: #ffffff;
+}
+
+.breadcrumb-sep {
+  color: #4f535b;
+}
+
+.breadcrumb-active {
+  color: #ffffff;
+}
+
+.community-hub-btn {
+  margin-left: auto;
+  background: #212c3d;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #66c0f4;
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.community-hub-btn:hover {
+  background: #28374d;
+  color: #ffffff;
+}
+
+/* Game Title */
+.product-game-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 16px;
+  letter-spacing: 0.5px;
+}
+
+/* ── Showcase Grid (Cinema + Details) ── */
+.product-showcase-grid {
+  display: grid;
+  grid-template-columns: 600px 1fr;
+  gap: 18px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  border-radius: 4px;
+}
+
+@media (max-width: 992px) {
+  .product-showcase-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Cinema Column */
+.showcase-cinema-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cinema-stage {
+  width: 100%;
+  height: 337px;
+  background: #000000;
+  border-radius: 3px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cinema-active-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cinema-thumbs-track {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+}
+
+.cinema-thumb-item {
+  width: 116px;
+  height: 65px;
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0.6;
+  border: 2px solid transparent;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.cinema-thumb-item:hover {
+  opacity: 0.9;
+}
+
+.cinema-thumb-item.active {
+  opacity: 1;
+  border-color: #ffffff;
+}
+
+.cinema-thumb-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Summary Column */
+.showcase-summary-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.summary-header-capsule {
+  width: 100%;
+  height: 151px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.summary-short-desc {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #c6d4df;
+  margin: 0;
+}
+
+.summary-meta-table {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 11px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  border-radius: 3px;
+}
+
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.meta-label {
+  color: #556772;
+  font-weight: 700;
+  min-width: 110px;
+}
+
+.meta-val {
+  color: #8f98a0;
+}
+
+.highlight-positive {
+  color: #66c0f4;
+  font-weight: 700;
+}
+
+.link-style {
+  color: #66c0f4;
+  cursor: pointer;
+}
+
+.link-style:hover {
+  text-decoration: underline;
+}
+
+.summary-tags-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tags-label {
+  font-size: 11px;
+  color: #556772;
+}
+
+.product-tags-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.steam-pill-tag {
+  background: rgba(103, 193, 245, 0.15);
+  color: #67c1f5;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.steam-pill-tag:hover {
+  background: #67c1f5;
+  color: #1b2838;
+}
+
+.steam-pill-tag.add-tag {
+  background: rgba(255, 255, 255, 0.08);
+  color: #8f98a0;
+}
+
+/* ── Action Ribbon ── */
+.product-action-ribbon {
+  display: flex;
+  gap: 8px;
+  margin: 16px 0 24px;
+}
+
+.ribbon-action-btn {
+  background: #212c3d;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #66c0f4;
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ribbon-action-btn:hover {
+  background: #2b394f;
+  color: #ffffff;
+}
+
+.ribbon-action-btn.active {
+  background: #4c6b22;
+  color: #a4d007;
+  border-color: #5c8429;
+}
+
+/* ── BUY BANNER ── */
+.product-buy-banner {
+  background: linear-gradient(90deg, #1b2838 0%, #15202d 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px 20px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.buy-banner-left h2 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.supported-platforms {
+  font-size: 12px;
+  color: #8f98a0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.buy-banner-right {
+  display: flex;
+  align-items: center;
+}
+
+.buy-price-block {
+  display: flex;
+  align-items: center;
+  background: #000000;
+  padding: 3px;
+  border-radius: 3px;
+}
+
+.discount-block {
+  display: flex;
+  align-items: center;
+}
+
+.discount-pill {
+  background: #4c6b22;
+  color: #a4d007;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 6px 8px;
+  border-radius: 2px;
+}
+
+.strikethrough-and-final {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+  align-items: flex-end;
+}
+
+.strike-orig {
+  font-size: 11px;
+  color: #707e8a;
+  text-decoration: line-through;
+}
+
+.final-price {
+  color: #c6d4df;
+  font-size: 13px;
+  padding: 0 10px;
+}
+
+.steam-buy-cart-btn {
+  background: linear-gradient(90deg, #75b022 0%, #588a1b 100%);
+  border: none;
+  color: #d2efa9;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.steam-buy-cart-btn:hover {
+  filter: brightness(1.2);
+  color: #ffffff;
+}
+
+/* ── DETAIL SECTIONS ── */
+.product-detail-section {
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+  margin: 0 0 16px;
+}
+
+.about-game-body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #acb2b8;
+}
+
+.about-game-body h4 {
+  color: #ffffff;
+  margin: 20px 0 8px;
+  font-size: 13px;
+}
+
+.about-game-body ul {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.about-game-body li {
+  margin-bottom: 8px;
+}
+
+/* System Requirements */
+.sys-req-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.sys-tab {
+  background: #182330;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #8da4b8;
+  font-size: 12px;
+  padding: 6px 16px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.sys-tab.active {
+  background: #2b394f;
+  color: #ffffff;
+  border-color: #66c0f4;
+}
+
+.sys-specs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.spec-col strong {
+  color: #ffffff;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.spec-col p {
+  margin: 4px 0;
+}
+
+/* ── Reviews Section ── */
+.reviews-header-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.reviews-sub-stats {
+  display: block;
+  font-size: 12px;
+  color: #8f98a0;
+  margin-top: 4px;
+}
+
+.review-filter-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.filter-btn {
+  background: #182330;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #8da4b8;
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.filter-btn.active {
+  background: #2b394f;
+  color: #66c0f4;
+  border-color: #66c0f4;
+}
+
+/* Write Review */
+.write-review-card {
+  background: #182330;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  padding: 18px;
+  margin-bottom: 24px;
+}
+
+.write-review-card h4 {
+  margin: 0 0 6px;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.write-review-card p {
+  margin: 0 0 12px;
+  font-size: 12px;
+  color: #8f98a0;
+}
+
+.write-review-textarea {
+  width: 100%;
+  background: #10161f;
+  border: 1px solid #233446;
+  border-radius: 3px;
+  color: #ffffff;
+  padding: 10px;
+  font-size: 13px;
+  outline: none;
+  resize: vertical;
+  margin-bottom: 14px;
+}
+
+.write-review-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.thumbs-select {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.thumb-choice-btn {
+  background: #212c3d;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.thumb-choice-btn.selected {
+  background: #4c6b22;
+  border-color: #a4d007;
+  color: #a4d007;
+}
+
+.steam-post-review-btn {
+  background: linear-gradient(90deg, #1a9fff 0%, #1168a6 100%);
+  border: none;
+  color: #ffffff;
+  padding: 8px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* Reviews Feed */
+.reviews-feed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.player-review-card {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 16px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 16px;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .player-review-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+.review-author-sidebar {
+  display: flex;
+  gap: 10px;
+}
+
+.author-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 2px;
+  object-fit: cover;
+}
+
+.author-info strong {
+  display: block;
+  font-size: 13px;
+  color: #ffffff;
+}
+
+.author-info small {
+  font-size: 11px;
+  color: #626d78;
+}
+
+.review-content-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.review-verdict-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px 12px;
+  border-radius: 3px;
+}
+
+.verdict-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.review-playtime-hours {
+  font-size: 11px;
+  color: #8091a0;
+}
+
+.review-posted-date {
+  font-size: 10px;
+  color: #626d78;
+  letter-spacing: 0.5px;
+}
+
+.review-text-body {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #acb2b8;
+  margin: 0;
+}
+
+.review-helpful-voting {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #626d78;
+  margin-top: 8px;
+}
+
+.vote-btn {
+  background: #212c3d;
+  border: none;
+  color: #66c0f4;
+  padding: 3px 8px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.vote-btn:hover {
+  background: #2b394f;
+  color: #ffffff;
+}
+
+.vote-count {
+  margin-left: 8px;
+}

@@ -19,7 +19,8 @@ type Game struct {
 	ID               uint           `gorm:"primaryKey" json:"id"`
 	Title            string         `gorm:"index;not null" json:"title"`
 	Slug             string         `gorm:"uniqueIndex;not null" json:"slug"`
-	ShortDescription string         `gorm:"type:varchar(255);not null" json:"short_description"`
+	Edition          string         `json:"edition"`
+	ShortDescription string         `gorm:"type:varchar(500);not null" json:"short_description"`
 	Description      string         `gorm:"type:text;not null" json:"description"`
 	Price            float64        `gorm:"not null;default:0.0" json:"price"`
 	DiscountPercent  int            `gorm:"default:0" json:"discount_percent"`
@@ -28,12 +29,49 @@ type Game struct {
 	Screenshots      pq.StringArray `gorm:"type:text[]" json:"screenshots"`
 	Genres           pq.StringArray `gorm:"type:text[]" json:"genres"`
 	DeveloperID      uint           `gorm:"index;not null" json:"developer_id"`
+	DeveloperName    string         `json:"developer_name"`
+	PublisherName    string         `json:"publisher_name"`
+	ReleaseDate      string         `json:"release_date"`
+	ReviewStatus     string         `json:"review_status"`
+	ReviewCount      string         `json:"review_count"`
+	MinOS            string         `json:"min_os"`
+	MinProcessor     string         `json:"min_processor"`
+	MinMemory        string         `json:"min_memory"`
+	MinGraphics      string         `json:"min_graphics"`
+	MinStorage       string         `json:"min_storage"`
+	RecOS            string         `json:"rec_os"`
+	RecProcessor     string         `json:"rec_processor"`
+	RecMemory        string         `json:"rec_memory"`
+	RecGraphics      string         `json:"rec_graphics"`
+	RecStorage       string         `json:"rec_storage"`
 	Status           GameStatus     `gorm:"type:varchar(20);default:'pending';not null" json:"status"`
 	IsFeatured       bool           `gorm:"default:false" json:"is_featured"`
 	IsPublished      bool           `gorm:"default:true" json:"is_published"`
 	CreatedAt        time.Time      `json:"created_at"`
 	UpdatedAt        time.Time      `json:"updated_at"`
 	DeletedAt        gorm.DeletedAt `gorm:"index" json:"-"`
+}
+
+type Review struct {
+	ID            uint           `gorm:"primaryKey" json:"id"`
+	GameID        uint           `gorm:"index;not null" json:"game_id"`
+	UserID        uint           `gorm:"index;not null" json:"user_id"`
+	AuthorName    string         `json:"author_name"`
+	AuthorAvatar  string         `json:"author_avatar"`
+	IsRecommended bool           `gorm:"not null" json:"is_recommended"`
+	PlaytimeHours string         `json:"playtime_hours"`
+	Content       string         `gorm:"type:text;not null" json:"content"`
+	HelpfulCount  int            `gorm:"default:0" json:"helpful_count"`
+	FunnyCount    int            `gorm:"default:0" json:"funny_count"`
+	CreatedAt     time.Time      `json:"created_at"`
+	UpdatedAt     time.Time      `json:"updated_at"`
+	DeletedAt     gorm.DeletedAt `gorm:"index" json:"-"`
+}
+
+type CreateReviewRequest struct {
+	IsRecommended bool   `json:"is_recommended"`
+	PlaytimeHours string `json:"playtime_hours"`
+	Content       string `json:"content" binding:"required"`
 }
 
 type CreateGameRequest struct {

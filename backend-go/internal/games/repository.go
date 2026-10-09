@@ -13,6 +13,9 @@ type Repository interface {
 	Delete(id uint) error
 	AdminFindAll(page, limit int) ([]Game, error)
 	UpdateStatus(id uint, status GameStatus, isFeatured *bool) error
+	GetReviews(gameID uint, filter string) ([]Review, error)
+	CreateReview(review *Review) error
+	VoteReview(reviewID uint, voteType string) error
 }
 
 type repository struct {
@@ -98,3 +101,27 @@ func (r *repository) UpdateStatus(id uint, status GameStatus, isFeatured *bool) 
 	}
 	return r.db.Model(&Game{}).Where("id = ?", id).Updates(updateData).Error
 }
+
+func (r *repository) GetReviews(gameID uint, filter string) ([]Review, error) {
+	var reviews []Review
+	q := r.db.Where("game_id = ?", gameID)
+	if filter == "positive" {
+		q = q.Where("is_recommended = true")
+	} else if filter == "negative" {
+		q = q.Where("is_recommended = false")
+	}
+	err := q.Order("helpful_count desc, created_at desc").Find(&reviews).Error
+	return reviews, err
+}
+
+func (r *repository) CreateReview(review *Review) error {
+	return r.db.Create(review).Error
+}
+
+func (r *repository) VoteReview(reviewID uint, voteType string) error {
+	if voteType == "funny" {
+		return r.db.Model(&Review{}).Where("id = ?", reviewID).UpdateColumn("funny_count", gorm.Expr("funny_count + 1")).Error
+	}
+	return r.db.Model(&Review{}).Where("id = ?", reviewID).UpdateColumn("helpful_count", gorm.Expr("helpful_count + 1")).Error
+}
+

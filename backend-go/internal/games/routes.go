@@ -19,6 +19,9 @@ func RegisterRoutes(rg *gin.RouterGroup, db *gorm.DB, s3Client *s3.S3Client) {
 		gamesGroup.GET("", handler.GetGames)
 		gamesGroup.GET("/featured", handler.GetFeaturedGames)
 		gamesGroup.GET("/:idOrSlug", handler.GetGame)
+		gamesGroup.GET("/:idOrSlug/reviews", handler.GetReviews)
+		gamesGroup.POST("/:idOrSlug/reviews", middleware.AuthRequired(), handler.CreateReview)
+		gamesGroup.POST("/reviews/:reviewId/vote", handler.VoteReview)
 	}
 
 	// S3 Asset Upload

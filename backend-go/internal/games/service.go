@@ -20,6 +20,9 @@ type Service interface {
 	DeleteDeveloperGame(id, devID uint) error
 	AdminGetAllGames(page, limit int) ([]Game, error)
 	AdminUpdateStatus(id uint, status GameStatus, isFeatured *bool) error
+	GetReviews(gameID uint, filter string) ([]Review, error)
+	CreateReview(gameID, userID uint, authorName, authorAvatar string, req CreateReviewRequest) (*Review, error)
+	VoteReview(reviewID uint, voteType string) error
 }
 
 type service struct {
@@ -166,4 +169,39 @@ func (s *service) AdminGetAllGames(page, limit int) ([]Game, error) {
 
 func (s *service) AdminUpdateStatus(id uint, status GameStatus, isFeatured *bool) error {
 	return s.repo.UpdateStatus(id, status, isFeatured)
+}
+
+func (s *service) GetReviews(gameID uint, filter string) ([]Review, error) {
+	return s.repo.GetReviews(gameID, filter)
+}
+
+func (s *service) CreateReview(gameID, userID uint, authorName, authorAvatar string, req CreateReviewRequest) (*Review, error) {
+	playtime := req.PlaytimeHours
+	if playtime == "" {
+		playtime = "14.2 hrs"
+	}
+	if authorName == "" {
+		authorName = "Steam Player"
+	}
+
+	review := Review{
+		GameID:        gameID,
+		UserID:        userID,
+		AuthorName:    authorName,
+		AuthorAvatar:  authorAvatar,
+		IsRecommended: req.IsRecommended,
+		PlaytimeHours: playtime,
+		Content:       req.Content,
+		HelpfulCount:  0,
+		FunnyCount:    0,
+	}
+
+	if err := s.repo.CreateReview(&review); err != nil {
+		return nil, err
+	}
+	return &review, nil
+}
+
+func (s *service) VoteReview(reviewID uint, voteType string) error {
+	return s.repo.VoteReview(reviewID, voteType)
 }
