@@ -1,0 +1,7 @@
+aws_region            = "us-east-1"
+environment           = "production"
+project_name          = "steam-store"
+db_password           = "ReplaceWithStrongDbPassword123!"
+docdb_master_password = "ReplaceWithStrongDocDbPassword123!"
+jwt_secret            = "replace_with_super_secret_jwt_key_here"
+gemini_api_key        = "AIzaSy..."

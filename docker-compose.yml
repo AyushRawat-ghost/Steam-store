@@ -1,0 +1,122 @@
+services:
+  # ─── PostgreSQL (Core Relational DB) ─────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: steam-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: yourpassword
+      POSTGRES_DB: steamdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - steam-net
+
+  # ─── Redis (Cache & Session Store) ──────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: steam-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - steam-net
+
+  # ─── MongoDB (Analytics & Event Pipeline) ───────────────────────────────────
+  mongodb:
+    image: mongo:7-jammy
+    container_name: steam-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - steam-net
+
+  # ─── MinIO (Local S3 Asset Storage) ─────────────────────────────────────────
+  minio:
+    image: minio/minio:latest
+    container_name: steam-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    networks:
+      - steam-net
+
+  # ─── Go Backend API ─────────────────────────────────────────────────────────
+  backend-go:
+    build:
+      context: ./backend-go
+      dockerfile: Dockerfile
+    container_name: steam-backend-go
+    restart: unless-stopped
+    depends_on:
+      - postgres
+      - redis
+      - mongodb
+      - minio
+    environment:
+      - PORT=8080
+      - DATABASE_URL=postgres://postgres:yourpassword@postgres:5432/steamdb?sslmode=disable
+      - REDIS_ADDR=redis:6379
+      - MONGO_URI=mongodb://mongodb:27017
+      - MONGO_DB_NAME=steam_analytics
+      - AI_ENGINE_URL=http://ai-engine-py:8000
+      - AWS_ENDPOINT_URL=http://minio:9000
+      - S3_PUBLIC_URL=http://localhost:9000
+      - AWS_ACCESS_KEY_ID=minioadmin
+      - AWS_SECRET_ACCESS_KEY=minioadmin
+      - S3_BUCKET_NAME=steam-assets
+      - JWT_SECRET=super_secret_local_jwt_key
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend-go:/app
+    networks:
+      - steam-net
+
+  # ─── Python AI Engine (FastAPI) ─────────────────────────────────────────────
+  ai-engine-py:
+    build:
+      context: ./ai-engine-py
+      dockerfile: Dockerfile
+    container_name: steam-ai-engine
+    restart: unless-stopped
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      - PORT=8000
+      - DATABASE_URL=postgres://postgres:yourpassword@postgres:5432/steamdb?sslmode=disable
+      - REDIS_ADDR=redis:6379
+      - MONGO_URI=mongodb://mongodb:27017
+      - MONGO_DB_NAME=steam_analytics
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./ai-engine-py:/app
+    networks:
+      - steam-net
+
+volumes:
+  postgres_data:
+  redis_data:
+  mongo_data:
+  minio_data:
+
+networks:
+  steam-net:
+    driver: bridge
